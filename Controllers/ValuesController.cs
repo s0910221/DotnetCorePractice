@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DotnetCorePractice.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DotnetCorePractice.Controllers
 {
@@ -12,9 +13,9 @@ namespace DotnetCorePractice.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public AppSettings Settings { get; }
+        public IOptionsSnapshot<AppSettings> Settings { get; }
 
-        public ValuesController (AppSettings settings) {
+        public ValuesController (IOptionsSnapshot<AppSettings> settings) {
             Settings = settings;
         }
 

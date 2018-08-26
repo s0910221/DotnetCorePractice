@@ -27,9 +27,9 @@ namespace DotnetCorePractice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services)
         {
-            services.AddTransient<IAppSettings, AppSettings> ();
-            services.AddScoped<IAppSettingsScoped, AppSettings> ();
-            services.AddSingleton<IAppSettingsSingleton, AppSettings> ();
+            var appSettings = new AppSettings ();
+            Configuration.Bind (appSettings);
+            services.AddSingleton<AppSettings> (appSettings);
 
             services.AddDistributedMemoryCache ();
             services.AddSession ();

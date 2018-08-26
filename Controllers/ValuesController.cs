@@ -12,14 +12,10 @@ namespace DotnetCorePractice.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public IAppSettings A1 { get; }
-        public IAppSettingsScoped A2 { get; }
-        public IAppSettingsSingleton A3 { get; }
-        public ValuesController (IAppSettings a1, IAppSettingsScoped a2, IAppSettingsSingleton a3)
-        {
-            A1 = a1;
-            A2 = a2;
-            A3 = a3;
+        public AppSettings Settings { get; }
+
+        public ValuesController (AppSettings settings) {
+            Settings = settings;
         }
 
         [HttpGet]
@@ -27,21 +23,21 @@ namespace DotnetCorePractice.Controllers
         public IActionResult GetTest1 ()
         {
             HttpContext.Session.SetString ("key", "The Doctor");
-            return Ok (A1.Name + "||" + HttpContext.Session.GetString ("key"));
+            return Ok (this.Settings);
         }
 
         [HttpGet]
         [Route ("test2")]
         public IActionResult GetTest2 ()
         {
-            return Ok (A2.Name + "||" + HttpContext.Session.GetString ("key"));
+            return Ok ("||" + HttpContext.Session.GetString ("key"));
         }
 
         [HttpGet]
         [Route ("test3")]
         public IActionResult GetTest3 ()
         {
-            return Ok (A3.Name);
+            return Ok ();
         }
 
         // GET api/values
